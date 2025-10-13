@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+</head>
+<body>
+    <input type="text" id="n1">
+    <input type="text" id="n2">
+    <button id="result" onclick="result();">Resultado</button>
+    <p id="texto"></p>
+
+    <script>
+        function result(){
+            let number1 = parseFloat(document.getElementById('n1').value);
+            let number2 = parseFloat(document.getElementById('n2').value)
+            let resultado = number1 + number2;
+            document.getElementById('texto').innerText = "Resutaldo: " + resultado;
+        }
+    </script>
+
+</body>
+</html>
