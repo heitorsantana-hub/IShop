@@ -35,27 +35,42 @@ db.connect(err => {
 
 //Puxa o html
 app.get('/', (req,res)  => {
-    res.sendFile(path.join(__dirname, 'public', 'main.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 
-})
+});
+
+//Gerar o registro do usuario
+app.post('/registerl', (req,res) => {
+    const {nome,cnpj,email,telefone,endereco, senha} = req.body;
+    const sql = 'INSERT INTO LOJAS (NOME,CNPJ,EMAIL,TELEFONE,ENDERECO,SENHA) VALUES (?,?,?,?,?,?)';
+
+    db.query(sql, [nome,cnpj,email,telefone,endereco, senha], (err,results) => {
+        if(err){
+            console.log(err);
+            return res.status(500).json(err);
+        }
+        res.send('<script>alert("Cadastro realizado com sucesso!"); window.location.href="register.html";</script>');
+
+    });
+});
 
 
 //Login no site
 app.post('/login', (req,res) =>{
-    const {nome, senha} = req.body;
-    const sql = 'SELECT * FROM LOGIN WHERE USUARIO = ?';
+    const {email, senha} = req.body;
+    const sql = 'SELECT * FROM LOJAS WHERE EMAIL = ?';
 
-    db.query(sql, [nome], async (err,results) => {
+    db.query(sql, [email], async (err,results) => {
         if(err) return res.status(500).json(err);
 
       if (results.length === 0) {
-      return res.send('<script>alert("Usuário não encontrado!"); window.location.href="main.html";</script>');
+      return res.send('<script>alert("Usuário não encontrado!"); window.location.href="login.html";</script>');
      }
 
     const usuario = results[0];
 
     if ( senha !== usuario.SENHA) {
-      return res.send('<script>alert("Senha incorreta!"); window.location.href="main.html";</script>');
+      return res.send('<script>alert("Senha incorreta!"); window.location.href="login.html";</script>');
     }
 
     
@@ -73,7 +88,7 @@ app.post('/materials/create', (req,res) => {
             console.error('Erro ao inserir dados: ', err.message);
             return res.send('Erro ao salvar no banco.');
         }
-        res.send('<script>alert("Dados Salvos com Sucesso!"); window.location.href="/home.html"</script>');
+        res.send('<script>alert("Dados Salvos com Sucesso!"); window.location.href="/estoque.html"</script>');
     })
 });
 
@@ -99,6 +114,20 @@ app.post('/materials/delete', (req,res) => {
         }
         res.send('<script>alert("Dados Removidos com Sucesso!"); window.location.href="/home.html"</script>');
     })
+});
+
+app.post('/registerf', (req,res) => {
+    const {nome,email, senha} = req.body;
+    const sql = 'INSERT INTO FUNCIONARIO (NOME,EMAIL,SENHA) VALUES (?,?,?)';
+
+    db.query(sql, [nome,email,senha], (err,results) => {
+        if(err){
+            console.log(err);
+            return res.status (500).json({error: 'Erro ao inserir no banco'});
+        }
+
+        res.send('<script>alert("Dados Cadastrados com Sucesso!"); window.location.href="/register.html"</script>');
+    });
 });
 
 //Enviar para página de edição
@@ -133,7 +162,7 @@ app.post('/materials/update', (req,res) => {
 
 
 
-
+//Busca produto
 app.get('/materials/search', (req,res) => {
     const {q} = req.query;
     const sql = 'SELECT * FROM PRODUTO WHERE NOME LIKE ?';

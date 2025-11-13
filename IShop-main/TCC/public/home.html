@@ -8,7 +8,7 @@
     :root{--bg:#f6f7fb;--card:#fff;--accent:#6b21a8;--muted:#666}
     *{box-sizing:border-box;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif}
     body{margin:0;background:linear-gradient(180deg,#f9f8ff, #f6f7fb);color:#111}
-    header{background:var(--accent);color:#fff;padding:18px 20px}
+    header{background:var(--accent);color:#fff;padding:18px 20px; text-align: center;}
     .container{max-width:980px;margin:26px auto;padding:18px}
     .card{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.05);margin-bottom:18px}
     h1,h2{margin:0 0 12px}
@@ -26,15 +26,39 @@
     .btn-danger{background:#cc2b2b}
     .btn-outline{background:transparent;color:var(--accent);border:1px solid #e6d9f5}
     footer{max-width:980px;margin:0 auto;padding:12px;color:var(--muted);font-size:0.9rem}
+     nav {
+      background: #5a189a;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding: 10px 0;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.15);
+    }
     @media(max-width:680px){.row{flex-direction:column}}
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <h1>Sistema de Estoque</h1>
+      <h1>IShop</h1>
     </div>
   </header>
+
+  <nav>
+    <a href="home.html">Dashboard</a>
+    <a href="estoque.html">Estoque</a>
+    <a href="registerf.html">Funcinarios</a>
+  </nav>
 
   <main class="container">
     <!-- INSTRUÇÕES: Este HTML é estático e NÃO contém lógica. Cada form envia para endpoints de servidor.
@@ -52,119 +76,7 @@
     <!-- ÁREA PRINCIPAL (será renderizada somente quando usuário autenticado) -->
     <!-- O servidor deve controlar exibição via sessão. Aqui seguem os formulários sem JS -->
 
-    <!-- CADASTRAR MATERIAL -->
-    <section class="card" id="cadastrar">
-      <h2>Cadastrar novo material</h2>
-      <form method="post" action="/materials/create">
-        <label for="nome">Nome do material</label>
-        <input id="nome" name="nome" type="text" required />
-
-        <label for="descricao">Fornecedor</label>
-        <input id="descricao" name="fornecedor" type="text" />
-
-        <div class="row">
-          <div class="col">
-            <label for="quantidade">Quantidade</label>
-            <input id="quantidade" name="quantidade" type="number" min="0" step="1" value="0" required />
-          </div>
-          <div class="col">
-            <label for="preco">Preço unitário (R$)</label>
-            <input id="preco" name="preco" type="number" min="0" step="0.01" value="0.00" required />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col" style="align-self:end;text-align:right">
-            <button type="submit">Cadastrar</button>
-          </div>
-        </div>
-      </form>
-    </section>
-
-    <!-- BUSCAR e LISTAR -->
-    <section class="card" id="buscar-listar">
-      <h2>Buscar / Listar materiais</h2>
-
-      <!-- Formulário de busca: envia para /materials/search?q=termo -->
-      <form method="get" action="/materials/search">
-        <div class="row">
-          <div class="col">
-            <label for="q">Buscar por nome</label>
-            <input id="q" name="q" type="text" placeholder="Ex: parafuso, cola" />
-          </div>
-          <div style="align-self:end">
-            <button type="submit">Buscar</button>
-          </div>
-        </div>
-      </form>
-
     
-
-      <!-- TABELA: O servidor deve inserir aqui as linhas com os dados reais. Abaixo há um exemplo estático. -->
-      <table aria-label="Lista de materiais">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Qtd</th>
-            <th>Preço (R$)</th>
-          </tr>
-        </thead>
-        <tbody id="tabelaMateriais">
-          <!-- SERVER: repetir uma <tr> por material -->
-          <!-- Exemplo estático: -->
-          <tr>
-            <td>1</td>
-            <td>Parafuso M4</td>
-            <td>Parafuso cabeça chata</td>
-            <td>120</td>
-            <td>0.15</td>
-            <td>Matéria-prima</td>
-            <td class="actions">
-              <!-- Atualizar (envia campos para /materials/update) -->
-              <form method="post" action="/materials/update" style="display:inline">
-                <input type="hidden" name="id" value="1" />
-                <input name="quantidade" type="number" min="0" step="1" value="120" style="width:80px" />
-                <input name="preco" type="number" min="0" step="0.01" value="0.15" style="width:90px" />
-                <button type="submit">Atualizar</button>
-              </form>
-
-              <!-- Excluir (envia para /materials/delete) -->
-              <form method="post" action="/materials/delete" style="display:inline">
-                <input type="hidden" name="id" value="1" />
-                <button type="submit" class="btn-danger">Excluir</button>
-              </form>
-            </td>
-          </tr>
-          <!-- FIM exemplo -->
-
-          <!-- SERVER: aqui outras linhas -->
-        </tbody>
-      </table>
-
-    </section>
-
-    <!-- FORMULÁRIO DE ATUALIZAÇÃO AVANÇADA (caso você prefira página separada) -->
-    <section class="card" id="atualizar">
-      <h2>Atualizar (página separada)</h2>
-      <form method="get" action="/materials/edit">
-        <label for="edit-id">ID do material</label>
-        <input id="edit-id" name="id" type="number" min="1" />
-        <div style="text-align:right;margin-top:6px"><button type="submit" class="btn-outline">Ir para edição</button></div>
-      </form>
-    </section>
-
-    <!-- EXCLUSÃO EM MASSA (opcional) -->
-    <section class="card" id="excluir-massa">
-      <h2>Excluir registro</h2>
-      <p class="muted">Também é possível excluir passando o ID no formulário abaixo.</p>
-      <form method="post" action="/materials/delete">
-        <label for="del-id">ID do material a excluir</label>
-        <input id="del-id" name="id" type="number" min="1" />
-        <div style="text-align:right;margin-top:6px"><button type="submit" class="btn-danger">Excluir</button></div>
-      </form>
-    </section>
 
   </main>
 

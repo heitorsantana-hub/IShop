@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cadastrar Loja — IShop</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #fff;
+      --accent: #6b21a8;
+      --muted: #666;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: Inter, Segoe UI, Helvetica, Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f9f8ff, #f6f7fb);
+      color: #111;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #5a189a;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding: 10px 0;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 26px auto;
+      padding: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      margin-bottom: 18px;
+    }
+
+    h1, h2 {
+      margin: 0 0 12px;
+    }
+
+    label {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .row .col {
+      flex: 1;
+    }
+
+    button {
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 14px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #5a189a;
+    }
+
+    footer {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media(max-width:680px) {
+      .row { flex-direction: column; }
+      nav { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>IShop</h1>
+    </div>
+  </header>
+
+  <!-- Navegação -->
+   <nav>
+    <a href="index.html">Início</a>
+    <a href="login.html">Login</a>
+    <a href="register.html">Cadastrar</a>
+  </nav>
+
+  <main class="container">
+    <section class="card">
+      <h2>Cadastrar</h2>
+      <form method="POST" action="/registerl">
+        <div class="row">
+          <div class="col">
+            <label for="nome">Nome da Loja</label>
+            <input id="nome" name="nome" type="text" placeholder="Ex: Móveis Bahia" required />
+          </div>
+          <div class="col">
+            <label for="cnpj">CNPJ</label>
+            <input id="cnpj" name="cnpj" type="text" placeholder="00.000.000/0000-00" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="contato@loja.com" required />
+          </div>
+          <div class="col">
+            <label for="telefone">Telefone</label>
+            <input id="telefone" name="telefone" type="text" placeholder="(71) 99999-9999" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+               <label for="endereco">Endereço</label>
+               <input id="endereco" name="endereco" type="text" placeholder="Rua Exemplo, 123 - Bairro - Cidade/UF" required />
+          </div>
+          <div class="colo">
+               <label for="endereco">Senha</label>
+               <input id="endereco" name="senha" type="password" required />
+          </div>
+        </div>
+       
+        <div style="text-align: right;">
+          <button type="submit">Salvar Loja</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 — Sistema de Estoque. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
